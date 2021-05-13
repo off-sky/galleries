@@ -1,1 +1,1 @@
-export const galleryFeatureKey = 'galleries';
+export const drawingFeatureKey = 'drawings';

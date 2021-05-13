@@ -1,53 +1,88 @@
-import {EntityDataState, Gallery} from "../dependencies";
+import {EntityDataState, Drawing} from "../dependencies";
 import {createReducer, on} from "@ngrx/store";
-import {loadGalleryFailed, loadGalleryRequested, loadGallerySuccess} from "../actions/gallery-data.actions";
+import {loadDrawingRequested, loadDrawingSuccess, loadDrawingFailed} from "../actions/drawing-data.actions";
 
-export interface GalleryDataState {
-    galleries: {
-        [galleryId: string]: EntityDataState<Gallery>
+export interface DrawingDataState {
+    drawings: {
+        [drawingId: string]: EntityDataState<Drawing>
+    };
+    artistsByDrawings: {
+        [drawingId: string]: {
+            artistId: string;
+        }
+    };
+    galleriesByDrawings: {
+        [drawingId: string]: {
+            galleryId: string;
+        }
     }
 }
 
-export const initialGalleryDataState: GalleryDataState = {
-    galleries: {}
+export const initialDrawingDataState: DrawingDataState = {
+    drawings: {},
+    artistsByDrawings: {},
+    galleriesByDrawings: {}
 }
 
-export const galleryDataReducer = createReducer<GalleryDataState>(
-    {...initialGalleryDataState},
-    on(loadGalleryRequested, (state, action) => {
-        const { galleryId } = action;
-        const previousEntityState: EntityDataState<Gallery> = state.galleries[galleryId] || {};
-        const newEntityState: EntityDataState<Gallery> = { ...previousEntityState, loading: true };
+export const drawingDataReducer = createReducer<DrawingDataState>(
+    {...initialDrawingDataState},
+    on(loadDrawingRequested, (state, action) => {
+        const { drawingId } = action;
+        const previousEntityState: EntityDataState<Drawing> = state.drawings[drawingId] || {};
+        const newEntityState: EntityDataState<Drawing> = { ...previousEntityState, loading: true };
         return {
             ...state,
-            galleries: {
-                ...state.galleries,
-                [galleryId]: newEntityState
+            drawings: {
+                ...state.drawings,
+                [drawingId]: newEntityState
             }
         };
     }),
-    on(loadGallerySuccess, (state, action) => {
-        const { gallery } = action;
-        const { id: galleryId } = gallery;
-        const previousEntityState: EntityDataState<Gallery> = state.galleries[galleryId] || {};
-        const newEntityState: EntityDataState<Gallery> = { ...previousEntityState, loading: false, entity: gallery };
-        return {
+    on(loadDrawingSuccess, (state, action) => {
+        const { drawing, artist, gallery } = action;
+        const { id: drawingId } = drawing;
+        const previousEntityState: EntityDataState<Drawing> = state.drawings[drawingId] || {};
+        const newEntityState: EntityDataState<Drawing> = { ...previousEntityState, loading: false, entity: drawing };
+        let resultState =  {
             ...state,
-            galleries: {
-                ...state.galleries,
-                [galleryId]: newEntityState
+            drawings: {
+                ...state.drawings,
+                [drawingId]: newEntityState
             }
         };
+        if (artist) {
+            resultState = {
+                ...resultState,
+                artistsByDrawings: {
+                    ...resultState.artistsByDrawings,
+                    [drawingId]: {
+                        artistId: artist.id
+                    }
+                }
+            }
+        }
+        if (gallery) {
+            resultState = {
+                ...resultState,
+                galleriesByDrawings: {
+                    ...resultState.galleriesByDrawings,
+                    [drawingId]: {
+                        galleryId: gallery.id
+                    }
+                }
+            }
+        }
+        return resultState;
     }),
-    on(loadGalleryFailed, (state, action) => {
-        const { galleryId, error } = action;
-        const previousEntityState: EntityDataState<Gallery> = state.galleries[galleryId] || {};
-        const newEntityState: EntityDataState<Gallery> = { ...previousEntityState, loading: false, error };
+    on(loadDrawingFailed, (state, action) => {
+        const { drawingId, error } = action;
+        const previousEntityState: EntityDataState<Drawing> = state.drawings[drawingId] || {};
+        const newEntityState: EntityDataState<Drawing> = { ...previousEntityState, loading: false, error };
         return {
             ...state,
-            galleries: {
-                ...state.galleries,
-                [galleryId]: newEntityState
+            drawings: {
+                ...state.drawings,
+                [drawingId]: newEntityState
             }
         };
     }),

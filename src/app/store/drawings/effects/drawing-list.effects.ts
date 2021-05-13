@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {galleryListNames} from "../reducers/gallery-list.reducer";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {
     listInitialized,
@@ -7,21 +6,22 @@ import {
     loadListRequested,
     loadListSuccess,
     setFilters
-} from "../actions/gallery-list.actions";
+} from "../actions/drawing-list.actions";
 import {catchError, debounceTime, filter, map, switchMap, take} from "rxjs/operators";
-import {GalleryListName, utils} from "../dependencies";
+import {DrawingListName, utils} from "../dependencies";
 import {Observable, of} from "rxjs";
 import {Action, Store} from "@ngrx/store";
-import {getFilters} from "../selectors/gallery-list.selectors";
-import {GalleriesApiService} from "../galleries-api.service";
+import {getFilters} from "../selectors/drawing-list.selectors";
+import {DrawingsApiService} from "../drawings-api.service";
+import {drawingListNames} from "../reducers/drawing-list.reducer";
 
 @Injectable()
-export class GalleryListEffects {
+export class DrawingListEffects {
 
     constructor(
         private actions$: Actions,
         private store: Store<any>,
-        private api: GalleriesApiService
+        private api: DrawingsApiService
     ) {
         this.setLoadListEffects();
     }
@@ -38,7 +38,7 @@ export class GalleryListEffects {
     );
 
     private setLoadListEffects(): void {
-        galleryListNames.forEach(listName => {
+        drawingListNames.forEach(listName => {
             this[`${listName}_loaded`] = createEffect(
                 () => this.actions$
                     .pipe(
@@ -54,12 +54,12 @@ export class GalleryListEffects {
         })
     }
 
-    private onLoadListRequested(listName: GalleryListName): Observable<Action> {
+    private onLoadListRequested(listName: DrawingListName): Observable<Action> {
         return this.store.select(getFilters, { listName })
             .pipe(
                 take(1),
                 switchMap(filters => {
-                    return this.api.getGalleryList(filters)
+                    return this.api.getDrawingList(filters)
                         .pipe(
                             map(items => loadListSuccess({ listName, items })),
                             catchError(error => {

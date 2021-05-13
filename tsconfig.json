@@ -6,6 +6,12 @@
 */
 {
   "files": [],
+  "compilerOptions": {
+    "paths": {
+      "@types": ["src/app/types"],
+      "@api": ["src/app/api"],
+    }
+  },
   "references": [
     {
       "path": "./tsconfig.app.json"

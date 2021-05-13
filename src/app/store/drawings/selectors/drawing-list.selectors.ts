@@ -1,16 +1,16 @@
 import {createSelector} from "@ngrx/store";
-import {getGalleriesFeature} from "./get-feature-state";
-import {GalleryListName} from "../dependencies";
-import {GalleryListState} from "../reducers/gallery-list.reducer";
+import {getDrawingFeature} from "./get-feature-state";
+import {DrawingListName} from "../dependencies";
+import {DrawingListState} from "../reducers/drawing-list.reducer";
 
-export const getAllGalleryListState = createSelector(
-    getGalleriesFeature,
+export const getAllDrawingListState = createSelector(
+    getDrawingFeature,
     state => state.lists
 );
 
 export const getGalleryListState = createSelector(
-    getAllGalleryListState,
-    (state, props: { listName: GalleryListName }): GalleryListState => state[props.listName]
+    getAllDrawingListState,
+    (state, props: { listName: DrawingListName }): DrawingListState => state[props.listName]
 );
 
 export const getFilters = createSelector(

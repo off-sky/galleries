@@ -1,13 +1,16 @@
-import * as fromLists from './gallery-list.reducer';
-import * as fromData from './gallery-data.reducer';
+import * as fromLists from './drawing-list.reducer';
+import * as fromData from './drawing-data.reducer';
+import * as fromDetails from './drawing-details.reducer';
 import {combineReducers} from "@ngrx/store";
 
-export interface GalleryFeatureState {
-    lists: fromLists.AllGalleryListState;
-    data: fromData.GalleryDataState;
+export interface DrawingFeatureState {
+    lists: fromLists.AllDrawingListState;
+    data: fromData.DrawingDataState;
+    details: fromDetails.DrawingDetailState;
 }
 
-export const galleryFeatureReducer = combineReducers<GalleryFeatureState>({
-    lists: fromLists.galleryListReducer,
-    data: fromData.galleryDataReducer
+export const drawingFeatureReducer = combineReducers<DrawingFeatureState>({
+    lists: fromLists.drawingListReducer,
+    data: fromData.drawingDataReducer,
+    details: fromDetails.drawingDetailReducer
 })

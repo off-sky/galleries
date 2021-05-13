@@ -1,7 +1,9 @@
-import {GalleryListEffects} from "./gallery-list.effects";
-import {GalleryDataEffects} from "./gallery-data.effects";
+import {DrawingListEffects} from "./drawing-list.effects";
+import {DrawingDataEffects} from "./drawing-data.effects";
+import {DrawingDetailsEffects} from "./drawing-details.effects";
 
-export const galleryFeatureEffects = [
-    GalleryListEffects,
-    GalleryDataEffects
+export const drawingFeatureEffects = [
+    DrawingListEffects,
+    DrawingDataEffects,
+    DrawingDetailsEffects
 ]

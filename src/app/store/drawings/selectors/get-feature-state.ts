@@ -1,5 +1,5 @@
 import {createFeatureSelector} from "@ngrx/store";
-import {galleryFeatureKey} from "../feature-key";
-import {GalleryFeatureState} from "../reducers";
+import {drawingFeatureKey} from "../feature-key";
+import {DrawingFeatureState} from "../reducers";
 
-export const getGalleriesFeature = createFeatureSelector<GalleryFeatureState>(galleryFeatureKey);
+export const getDrawingFeature = createFeatureSelector<DrawingFeatureState>(drawingFeatureKey);

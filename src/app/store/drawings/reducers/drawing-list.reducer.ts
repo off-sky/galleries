@@ -1,23 +1,25 @@
-import {GalleryListFilter, GalleryListName} from "../dependencies";
+import {DrawingListFilter, DrawingListName} from "../dependencies";
 import {createReducer, on} from "@ngrx/store";
-import * as fromActions from '../actions/gallery-list.actions';
+import * as fromActions from '../actions/drawing-list.actions';
 
-export const galleryListNames = [
-    GalleryListName.MAIN_LIST
+export const drawingListNames = [
+    DrawingListName.MAIN_DRAWING_LIST,
+    DrawingListName.ARTIST_DETAILS_DRAWING_LIST,
+    DrawingListName.GALLERY_DETAILS_DRAWING_LIST
 ]
 
-export interface GalleryListState {
+export interface DrawingListState {
     loading: boolean;
     items: string[];
     error: any;
-    filters: GalleryListFilter[];
+    filters: DrawingListFilter[];
 }
 
-export type AllGalleryListState = {
-    [key in GalleryListName]?: GalleryListState;
+export type AllDrawingListState = {
+    [key in DrawingListName]?: DrawingListState;
 }
 
-export const getInitialGalleryListState = (): GalleryListState => {
+export const getInitialDrawingListState = (): DrawingListState => {
     return {
         loading: false,
         items: [],
@@ -26,16 +28,16 @@ export const getInitialGalleryListState = (): GalleryListState => {
     }
 }
 
-export const getInitialAllGalleryListState = (): AllGalleryListState => {
-    const result = {} as AllGalleryListState;
-    galleryListNames.forEach(listName => {
-        result[listName] = getInitialGalleryListState()
+export const getInitialAllDrawingListState = (): AllDrawingListState => {
+    const result = {} as AllDrawingListState;
+    drawingListNames.forEach(listName => {
+        result[listName] = getInitialDrawingListState()
     })
     return result;
 }
 
-export const galleryListReducer = createReducer<AllGalleryListState>(
-    { ...getInitialAllGalleryListState() },
+export const drawingListReducer = createReducer<AllDrawingListState>(
+    { ...getInitialAllDrawingListState() },
     on(fromActions.setFilters, (allState, action) => {
         const { listName } = action;
         const state = allState[listName];
@@ -46,7 +48,7 @@ export const galleryListReducer = createReducer<AllGalleryListState>(
         return {
             ...allState,
             [listName]: { ...newState }
-        } as AllGalleryListState;
+        } as AllDrawingListState;
     }),
     on(fromActions.loadListRequested, (allState, action) => {
         const { listName } = action;
@@ -58,7 +60,7 @@ export const galleryListReducer = createReducer<AllGalleryListState>(
         return {
             ...allState,
             [listName]: { ...newState }
-        } as AllGalleryListState;
+        } as AllDrawingListState;
     }),
     on(fromActions.loadListSuccess, (allState, action) => {
         const { listName, items } = action;
@@ -71,7 +73,7 @@ export const galleryListReducer = createReducer<AllGalleryListState>(
         return {
             ...allState,
             [listName]: { ...newState }
-        } as AllGalleryListState;
+        } as AllDrawingListState;
     }),
     on(fromActions.loadListFailed, (allState, action) => {
         const { listName, error } = action;
@@ -84,7 +86,7 @@ export const galleryListReducer = createReducer<AllGalleryListState>(
         return {
             ...allState,
             [listName]: { ...newState }
-        } as AllGalleryListState;
+        } as AllDrawingListState;
     })
 )
 

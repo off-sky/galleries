@@ -1,10 +1,12 @@
-import {GalleryListFacade} from './gallery-list.facade';
-import {GalleryDataFacade} from "./gallery-data.facade";
+import {DrawingListFacade} from './drawing-list.facade';
+import {DrawingDataFacade} from "./drawing-data.facade";
+import {DrawingDetailsFacade} from "./drawing-details.facade";
 
-export const galleryFeatureFacades = [
-  GalleryListFacade, GalleryDataFacade
+export const drawingFeatureFacades = [
+  DrawingListFacade, DrawingDataFacade, DrawingDetailsFacade
 ];
 export {
-    GalleryListFacade,
-    GalleryDataFacade
+    DrawingListFacade,
+    DrawingDataFacade,
+    DrawingDetailsFacade
 }

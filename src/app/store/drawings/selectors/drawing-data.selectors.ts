@@ -1,32 +1,45 @@
 import {createSelector} from "@ngrx/store";
-import {getGalleriesFeature} from "./get-feature-state";
+import {getDrawingFeature} from "./get-feature-state";
 
-const getGalleryDataState = createSelector(
-    getGalleriesFeature,
+const getDrawingDataState = createSelector(
+    getDrawingFeature,
     state => state.data
 );
 
-export const getAllGalleries = createSelector(
-    getGalleryDataState,
-    state => state.galleries
+export const getAllDrawings = createSelector(
+    getDrawingDataState,
+    state => state.drawings
 );
 
-const getGalleryEntityState = createSelector(
-    getAllGalleries,
-    (state, props: { galleryId: string; }) => state[props.galleryId]
+const getDrawingEntityState = createSelector(
+    getAllDrawings,
+    (state, props: { drawingId: string; }) => state[props.drawingId]
 );
 
-export const getGallery = createSelector(
-    getGalleryEntityState,
+export const getDrawing = createSelector(
+    getDrawingEntityState,
     state => state?.entity
 );
 
-export const getGalleryLoading = createSelector(
-    getGalleryEntityState,
+export const getDrawingLoading = createSelector(
+    getDrawingEntityState,
     state => state?.loading
 );
 
-export const getGalleryError = createSelector(
-    getGalleryEntityState,
+export const getDrawingError = createSelector(
+    getDrawingEntityState,
     state => state?.error
+);
+
+// artist id by drawing
+export const getAllArtistByDrawing = createSelector(
+    getDrawingDataState,
+    state => state.artistsByDrawings
+);
+
+
+// gallery id by drawing
+export const getAllGalleryByDrawing = createSelector(
+    getDrawingDataState,
+    state => state.galleriesByDrawings
 );

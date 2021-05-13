@@ -1,0 +1,5 @@
+export enum GalleryListName {
+    MAIN_LIST='MAIN_LIST',
+    ARTIST_DETAILS_GALLERY_LIST = 'ARTIST_DETAILS_GALLERY_LIST'
+}
+
