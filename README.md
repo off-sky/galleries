@@ -1,6 +1,38 @@
-# ArchitectureRef
+# Galleries
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.1.
+The project was created as an example of an Angular+NGRX file structure.
+
+[Angular CLI](https://github.com/angular/angular-cli) version 10.0.1.
+
+##Main folders and concepts
+
+###Api
+Contains the types and logic directly related to server interaction.
+
+###Convertors
+Functions that convert the entities provided by the server to the entities utilized by the app (when needed).
+
+###Features
+Proper angular modules. They consume store, routes and types.
+
+####Common folder in features
+Components consumed by multiple features. They differ from shared in that they are aware of the store and app types.
+
+###Routes
+Abstractions over app routes.
+
+###Shared
+Component libraries (store-agnostic), used by features
+
+###Store
+This is where ALL app-wide state management lives (ngrx). Exposed via facades
+
+###Types
+Typescript types describing all entities utilized by the app.
+Note that we don't use the types from /api. In case we want to use the same type as provided by the server, we still re-export it from this folder.
+
+###Utils
+Useful functions, both generic and those that operate on app entities.
 
 ## Development server
 
