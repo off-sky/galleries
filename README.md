@@ -2,6 +2,8 @@
 
 The project was created as an example of an Angular+NGRX file structure.
 
+Demo [here](https://galleries-d1158.web.app/).
+
 [Angular CLI](https://github.com/angular/angular-cli) version 10.0.1.
 
 ##Main folders and concepts
